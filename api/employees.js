@@ -79,12 +79,13 @@ employeesRouter.post('/', (req, res, next) => {
       return res.sendStatus(400);
     }
   
-    const sql = 'UPDATE Employee SET name = $name, position = $position, wage = $wage, is_current_employee = $isCurrentEmployee';
+    const sql = 'UPDATE Employee SET name = $name, position = $position, wage = $wage, is_current_employee = $isCurrentEmployee WHERE Employee.id = $id';
         const values = {
         $name: name,
         $position: position,
         $wage: wage,
-        $isCurrentEmployee: isCurrentEmployee
+        $isCurrentEmployee: isCurrentEmployee,
+        $id: req.employee.id
         };
   
     db.run(sql, values, (error) => {

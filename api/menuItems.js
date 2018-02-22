@@ -73,13 +73,14 @@ menuItemsRouter.post('/', (req, res, next) => {
     return res.sendStatus(400);
     }
 
-  const sql = 'UPDATE MenuItem SET name = $name, description = $description, inventory = $inventory, price = $price, menu_id = $menuId ';
+  const sql = 'UPDATE MenuItem SET name = $name, description = $description, inventory = $inventory, price = $price, menu_id = $menuId WHERE MenuItem.id = $id';
   const values = {
     $name: name,
     $description: description,
     $inventory: inventory,
     $price: price, 
-    $menuId: req.params.menuId
+    $menuId: menuId,
+    $id: req.menuItem.id
   };
 
   db.run(sql, values, (error) => {

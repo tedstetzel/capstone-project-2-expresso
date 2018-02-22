@@ -69,9 +69,11 @@ menusRouter.post('/', (req, res, next) => {
       return res.sendStatus(400);
     }
   
-    const sql = 'UPDATE Menu SET title = $title';
+    const sql = 'UPDATE Menu SET title = $title WHERE Menu.id = $id ';
         const values = {
-        $title: title};
+        $title: title,
+        $id: req.menu.id
+      };
   
     db.run(sql, values, (error) => {
       if (error) {

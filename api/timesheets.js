@@ -71,12 +71,13 @@ timesheetsRouter.post('/', (req, res, next) => {
     return res.sendStatus(400);
     }
   
-    const sql = 'UPDATE Timesheet SET hours = $hours, rate = $rate, date = $date, employee_id = $employeeId';
+    const sql = 'UPDATE Timesheet SET hours = $hours, rate = $rate, date = $date, employee_id = $employeeId WHERE Timesheet.id = $id';
     const values = {
         $hours: hours,
         $rate: rate,
         $date: date,
-        $employeeId: employeeId
+        $employeeId: employeeId,
+        $id: req.timesheet.id
       };
   
     db.run(sql, values, (error) => {
